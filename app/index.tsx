@@ -12,8 +12,9 @@ import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import Foundation from '@expo/vector-icons/Foundation';
 import TranslucentButton from '@/components/ui/TranslucentButton'
 import Timer from "@/components/Timer"
-
+import Stopwatch from "@/components/Stopwatch"
 export default function index() {
+    const [state, setState] = useState("timer");
 
     return (
         <SafeAreaView style={styles.container}>
@@ -25,7 +26,7 @@ export default function index() {
                 </View>
 
                 <View style={{ justifyContent: "center", alignItems: 'center', paddingBottom: 20, paddingTop: 10 }}>
-                    <Toggler onIconPath={TimerIcon} offIconPath={StopwatchIcon} />
+                    <Toggler onIconPath={TimerIcon} offIconPath={StopwatchIcon} stateHandler={setState}/>
                 </View>
 
                 <View style={styles.window_box}>
@@ -54,12 +55,12 @@ export default function index() {
 
                 <View>
                     <View style={{ justifyContent: "center", alignItems: "center" }}>
-                        <Timer  />
+                        {
+                            (state == "timer") ? <Timer  /> : <Stopwatch />
+                        }
                     </View>
 
-                    <View style={{ height: 40, backgroundColor: "blue", justifyContent: "center" }}>
-                        <Text style={{ backgroundColor: "orange" }}>Slider</Text>
-                    </View>
+                    
 
                 </View>
             </View>

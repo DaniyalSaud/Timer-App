@@ -1,10 +1,18 @@
 import { StyleSheet, View, Image, ImageSourcePropType, Pressable, Animated } from 'react-native'
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
-export default function Toggler({ onIconPath, offIconPath }: { onIconPath: ImageSourcePropType, offIconPath: ImageSourcePropType }) {
+export default function Toggler({ onIconPath, offIconPath, stateHandler }: { onIconPath: ImageSourcePropType, offIconPath: ImageSourcePropType, stateHandler: Function }) {
     const [selectedLeft, setSelectedLeft] = useState(true);
     const [selectedRight, setSelectedRight] = useState(false);
     
+    useEffect(()=>{
+        if (selectedLeft) {
+            stateHandler("timer")
+        } else if (selectedRight) {
+            stateHandler("stopwatch")
+        }
+    }, [selectedLeft, selectedRight])
+
     // Use Animated.Value instead of ValueXY since we're only animating horizontally
     const slideAnim = useRef(new Animated.Value(0)).current;
 
